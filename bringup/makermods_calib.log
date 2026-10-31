@@ -1,0 +1,183 @@
+Clearing residual servo state...
+All servos ready.
+
+==================== Stage 0: Initialization ====================
+Configuring servo: shoulder_pan(1)
+Configuring servo: shoulder_lift(2)
+Configuring servo: elbow_flex(3)
+Configuring servo: wrist_flex(4)
+Configuring servo: wrist_roll(5)
+Configuring servo: gripper(6)
+Initialized and torque enabled (P=16, Acc=50, Torque=380).
+
+--- Unfolding wrist_flex(4) (910 steps ≈ 80.0°) ---
+[wrist_flex(4)] set current position as midpoint: Present_Position=2120
+    [wrist_flex(4)] current pos=2151, target pos=2957
+    [wrist_flex(4)] lift motion done: True, evaluating position
+    [wrist_flex(4)] not arrived: pos=2151 (806 steps from target ≈ 70.8°, exceeds 5.0°)
+    [wrist_flex(4)] current pos=2064, target pos=1137
+    [wrist_flex(4)] lift motion done: True, evaluating position
+    [wrist_flex(4)] arrived: pos=1153 (error 16 steps ≈ 1.4°, within 5.0°)
+    [wrist_flex(4)] reverse succeeded
+
+--- Unfolding shoulder_lift(2) (170 steps ≈ 15.0°) ---
+[shoulder_lift(2)] set current position as midpoint: Present_Position=2031
+    [shoulder_lift(2)] current pos=2031, target pos=2217
+    [shoulder_lift(2)] lift motion done: True, evaluating position
+    [shoulder_lift(2)] arrived: pos=2215 (error 2 steps ≈ 0.2°, within 5.0°)
+    [shoulder_lift(2)] forward succeeded
+
+--- Unfolding elbow_flex(3) (341 steps ≈ 30.0°) ---
+[elbow_flex(3)] set current position as midpoint: Present_Position=2069
+    [elbow_flex(3)] current pos=2069, target pos=2388
+    [elbow_flex(3)] lift motion done: True, evaluating position
+    [elbow_flex(3)] not arrived: pos=2069 (319 steps from target ≈ 28.0°, exceeds 5.0°)
+    [elbow_flex(3)] current pos=2056, target pos=1706
+    [elbow_flex(3)] lift motion done: True, evaluating position
+    [elbow_flex(3)] arrived: pos=1751 (error 45 steps ≈ 4.0°, within 5.0°)
+    [elbow_flex(3)] reverse succeeded
+
+==================== Calibrating servos 2 and 3 (multi-servo, opposite of lift direction) ====================
+  [shoulder_lift(2)] Phase(reg18): 0x0C (already single-turn)
+  [elbow_flex(3)] Phase(reg18): 0x0C (already single-turn)
+  [shoulder_lift(2)] CCW stop reason: timeout (20s), stall position: 1535
+  [elbow_flex(3)] CW stop reason: timeout (20s), stall position: 2869
+  [shoulder_lift(2)] CW stop reason: timeout (20s), stall position: 3952
+  [elbow_flex(3)] CCW stop reason: timeout (20s), stall position: 642
+  [shoulder_lift(2)] using pre-sampled reference start_pos=1719, skipping limit back-off
+  [shoulder_lift(2)] CW=3952, CCW=1535, computed reference=1719, range steps=2417  (212.4°), physical mid=2743, crosses zero=False
+  [elbow_flex(3)] using pre-sampled reference start_pos=2557, skipping limit back-off
+  [elbow_flex(3)] CW=2869, CCW=642, computed reference=2557, range steps=2227  (195.7°), physical mid=1755, crosses zero=False
+Preparing to write registers
+  shoulder_lift(2): post-offset range_min=839, range_max=3255, mid=2743, Homing_Offset register=696
+  shoulder_lift(2) pre-write: Min_Position_Limit=0, Max_Position_Limit=4095, Homing_Offset=0
+  shoulder_lift(2) post-write: Min_Position_Limit=839, Max_Position_Limit=3255, Homing_Offset=696
+  elbow_flex(3): post-offset range_min=934, range_max=3160, mid=1755, Homing_Offset register=-292
+  elbow_flex(3) pre-write: Min_Position_Limit=0, Max_Position_Limit=4095, Homing_Offset=0
+  elbow_flex(3) post-write: Min_Position_Limit=934, Max_Position_Limit=3160, Homing_Offset=-292
+
+==================== Fold arm (simultaneous) ====================
+  shoulder_lift(2) current pos=3256, Fold to range_min=839.
+  elbow_flex(3) current pos=934, Fold to range_max=3160.
+  shoulder_lift(2) after Fold: end pos=1571, arrived
+  elbow_flex(3) after Fold: end pos=3134, arrived
+  Fold complete.
+
+
+==================== Stage 3: Calibrate servos 4-6 (multi-servo simultaneous) ====================
+
+==================== Relative unfold 80.0° from current pos ====================
+  elbow_flex(3) unfold 80.0°: pos 3135 -> 2225
+  elbow_flex(3) arrived
+  unfold complete.
+
+  [wrist_roll(5)] Phase(reg18): 0x0C (already single-turn)
+  [gripper(6)] Phase(reg18): 0x0C (already single-turn)
+  [wrist_flex(4)] Phase(reg18): 0x0C (already single-turn)
+  [wrist_roll(5)] CW stop reason: timeout (20s), stall position: 4077
+  [gripper(6)] CW stop reason: timeout (20s), stall position: 2660
+  [wrist_flex(4)] CW stop reason: timeout (20s), stall position: 2710
+  [wrist_roll(5)] CCW stop reason: timeout (20s), stall position: 237
+  [gripper(6)] CCW stop reason: timeout (20s), stall position: 1157
+  [wrist_flex(4)] CCW stop reason: timeout (20s), stall position: 435
+Probing reference position...
+  [wrist_roll(5)] long arc: 3840 steps, short arc: 256 steps, back-off steps: 85 (7.5°)
+
+--- Unfolding wrist_roll(5) (85 steps ≈ 7.5°) ---
+[wrist_roll(5)] set current position as midpoint: Present_Position=2053
+    [wrist_roll(5)] current pos=2127, target pos=2132
+    [wrist_roll(5)] lift motion done: True, evaluating position
+    [wrist_roll(5)] arrived: pos=2128 (error 4 steps ≈ 0.4°, within 5.0°)
+    [wrist_roll(5)] forward succeeded
+  [wrist_roll(5)] backed off 85 steps (7.5°) from limit to reference: present=2128, offset=-1811, actual=317
+  [wrist_roll(5)] CW=4077, CCW=237, computed reference=317, range steps=3840  (337.5°), physical mid=2157, crosses zero=False
+Probing reference position...
+  [gripper(6)] long arc: 2593 steps, short arc: 1503 steps, back-off steps: 501 (44.0°)
+
+--- Unfolding gripper(6) (501 steps ≈ 44.0°) ---
+[gripper(6)] set current position as midpoint: Present_Position=2054
+    [gripper(6)] current pos=2055, target pos=2548
+    [gripper(6)] lift motion done: True, evaluating position
+    [gripper(6)] arrived: pos=2539 (error 9 steps ≈ 0.8°, within 5.0°)
+    [gripper(6)] forward succeeded
+  [gripper(6)] backed off 501 steps (44.0°) from limit to reference: present=2539, offset=-891, actual=1648
+  [gripper(6)] CW=2660, CCW=1157, computed reference=1648, range steps=1503  (132.1°), physical mid=1908, crosses zero=False
+Probing reference position...
+  [wrist_flex(4)] long arc: 2275 steps, short arc: 1821 steps, back-off steps: 607 (53.3°)
+
+--- Unfolding wrist_flex(4) (607 steps ≈ 53.3°) ---
+[wrist_flex(4)] set current position as midpoint: Present_Position=2048
+    [wrist_flex(4)] current pos=2052, target pos=2654
+    [wrist_flex(4)] lift motion done: True, evaluating position
+    [wrist_flex(4)] arrived: pos=2638 (error 16 steps ≈ 1.4°, within 5.0°)
+    [wrist_flex(4)] forward succeeded
+  [wrist_flex(4)] backed off 607 steps (53.3°) from limit to reference: present=2638, offset=-1613, actual=1025
+  [wrist_flex(4)] CW=2710, CCW=435, computed reference=1025, range steps=2275  (200.0°), physical mid=1572, crosses zero=False
+Preparing to write registers
+  wrist_roll(5): post-offset range_min=127, range_max=3967, mid=2157, Homing_Offset register=110
+  wrist_roll(5) pre-write: Min_Position_Limit=0, Max_Position_Limit=4095, Homing_Offset=-1811
+  wrist_roll(5) post-write: Min_Position_Limit=127, Max_Position_Limit=3967, Homing_Offset=110
+  gripper(6): post-offset range_min=1296, range_max=2798, mid=1908, Homing_Offset register=-139
+  gripper(6) pre-write: Min_Position_Limit=0, Max_Position_Limit=4095, Homing_Offset=-891
+  gripper(6) post-write: Min_Position_Limit=1296, Max_Position_Limit=2798, Homing_Offset=-139
+  wrist_flex(4): post-offset range_min=910, range_max=3184, mid=1572, Homing_Offset register=-475
+  wrist_flex(4) pre-write: Min_Position_Limit=0, Max_Position_Limit=4095, Homing_Offset=-1613
+  wrist_flex(4) post-write: Min_Position_Limit=910, Max_Position_Limit=3184, Homing_Offset=-475
+
+==================== Fold/Unfold arm (simultaneous) ====================
+  elbow_flex(3) current pos=2226, Fold to range_max=3160.
+  wrist_flex(4) current pos=2052, Unfold to range_min=910.
+  gripper(6) current pos=2056, Fold to range_min(gripper forward)=1296.
+  elbow_flex(3) after Fold/Unfold: end pos=3144, arrived
+  wrist_flex(4) after Fold/Unfold: end pos=949, arrived
+  gripper(6) after Fold/Unfold: end pos=1309, arrived
+  Fold/Unfold complete.
+
+
+==================== Stage 4: Calibrate shoulder_pan(1) (servo 1) and return to mid ====================
+  [shoulder_pan(1)] Phase(reg18): 0x0C (already single-turn)
+  [shoulder_pan(1)] Operating_Mode=1 (expected 1, constant-speed mode)
+  [shoulder_pan(1)] CW stop reason: timeout (20s)
+  [shoulder_pan(1)] CW stall position: 3497
+  [shoulder_pan(1)] CCW stop reason: timeout (20s)
+  [shoulder_pan(1)] CCW stall position: 895
+Probing reference position...
+  [shoulder_pan(1)] long arc: 2602 steps, short arc: 1494 steps, back-off steps: 498 (43.8°)
+
+--- Unfolding shoulder_pan(1) (498 steps ≈ 43.8°) ---
+[shoulder_pan(1)] set current position as midpoint: Present_Position=2048
+    [shoulder_pan(1)] current pos=2213, target pos=2545
+    [shoulder_pan(1)] lift motion done: True, evaluating position
+    [shoulder_pan(1)] arrived: pos=2537 (error 8 steps ≈ 0.7°, within 5.0°)
+    [shoulder_pan(1)] forward succeeded
+  [shoulder_pan(1)] backed off 498 steps (43.8°) from limit to reference: present=2537, offset=-1153, actual=1384
+  [shoulder_pan(1)] CW=3497, CCW=895, computed reference=1384, range steps=2602  (228.7°), physical mid=2196, crosses zero=False
+Preparing to write registers
+  shoulder_pan(1): post-offset range_min=746, range_max=3348, mid=2196, Homing_Offset register=149
+  shoulder_pan(1) pre-write: Min_Position_Limit=0, Max_Position_Limit=4095, Homing_Offset=-1153
+  shoulder_pan(1) post-write: Min_Position_Limit=746, Max_Position_Limit=3348, Homing_Offset=149
+
+==================== Calibration results ====================
+  wrist_roll(5): min=127, max=3967, mid=2157, offset=110
+  gripper(6): min=1296, max=2798, mid=1908, offset=-139
+  wrist_flex(4): min=910, max=3184, mid=1572, offset=-475
+  elbow_flex(3): min=934, max=3160, mid=1755, offset=-292
+  shoulder_lift(2): min=839, max=3255, mid=2743, offset=696
+  shoulder_pan(1): min=746, max=3348, mid=2196, offset=149
+
+==================== Fold arm (simultaneous) ====================
+  shoulder_lift(2) current pos=848, Fold to range_min=839.
+  elbow_flex(3) current pos=3145, Fold to range_max=3160.
+  wrist_flex(4) current pos=928, Fold to range_max=3184.
+  gripper(6) current pos=1309, Fold to range_min(gripper forward)=1296.
+  shoulder_lift(2) after Fold: end pos=846, arrived
+  elbow_flex(3) after Fold: end pos=3145, arrived
+  wrist_flex(4) after Fold: end pos=2870, arrived
+  gripper(6) after Fold: end pos=1309, arrived
+  Fold complete.
+
+
+==================== Persistence (same scheme as manual calibration) ====================
+Wrote calibration to servo EEPROM.
+Wrote calibration to: /Users/venkatasatyanarayanachivatam/.cache/huggingface/lerobot/calibration/robots/so_follower/so101_follower.json
+Releasing all servos...
