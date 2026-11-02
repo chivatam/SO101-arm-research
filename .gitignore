@@ -1,6 +1,10 @@
 .venv/
 third_party/
+video_to_data/
 __pycache__/
 *.pyc
 .DS_Store
-bringup/camera_frames/
+
+# Local session output. runs/README.md stays in git.
+runs/*
+!runs/README.md

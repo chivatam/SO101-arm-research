@@ -1,0 +1,57 @@
+diff --git a/src/lerobot/motors/feetech/feetech.py b/src/lerobot/motors/feetech/feetech.py
+index f54cb38..6cd028f 100644
+--- a/src/lerobot/motors/feetech/feetech.py
++++ b/src/lerobot/motors/feetech/feetech.py
+@@ -95,7 +95,8 @@ def patch_setPacketTimeout(self, packet_length):  # noqa: N802
+     patching.
+     """
+     self.packet_start_time = self.getCurrentTime()
+-    self.packet_timeout = (self.tx_time_per_byte * packet_length) + (self.tx_time_per_byte * 3.0) + 50
++    # 250 ms floor: this WCH adapter drops replies inside a 50 ms window.
++    self.packet_timeout = (self.tx_time_per_byte * packet_length) + (self.tx_time_per_byte * 3.0) + 250
+ 
+ 
+ class FeetechMotorsBus(FeetechCalibrationMixin, MotorsBus):
+diff --git a/src/lerobot/scripts/lerobot_auto_calibrate_feetech.py b/src/lerobot/scripts/lerobot_auto_calibrate_feetech.py
+index 879d27e..f2d6021 100644
+--- a/src/lerobot/scripts/lerobot_auto_calibrate_feetech.py
++++ b/src/lerobot/scripts/lerobot_auto_calibrate_feetech.py
+@@ -359,9 +359,14 @@ def _calibrate_motors(
+ # ====================== Connect and init (shared) ======================
+ 
+ def _connect_and_clear(port: str) -> FeetechMotorsBus:
+-    """Create the bus, clear residual Overload, then connect for real. Raises on failure."""
++    """Create the bus, clear residual Overload, then connect for real. Raises on failure.
++
++    This adapter drops a broadcast scan and a short packet timeout, so the handshake ping
++    misses a servo. Open the port, wait 1s for each reply, and ping every ID directly.
++    """
+     bus = FeetechMotorsBus(port=port, motors=SO_FOLLOWER_MOTORS.copy())
+     bus.connect(handshake=False)
++    bus.set_timeout(1000)
+     print("Clearing residual servo state...")
+     all_zero = {m: 0 for m in MOTOR_NAMES}
+     for _ in range(3):
+@@ -376,7 +381,21 @@ def _connect_and_clear(port: str) -> FeetechMotorsBus:
+         time.sleep(0.2)
+     bus.disconnect(disable_torque=False)
+     time.sleep(0.2)
+-    bus.connect()
++    bus.connect(handshake=False)
++    bus.set_timeout(1000)
++    missing = []
++    for name in MOTOR_NAMES:
++        model = None
++        for _ in range(5):
++            model = bus.ping(name, num_retry=2)
++            if model is not None:
++                break
++            time.sleep(0.05)
++        if model is None:
++            missing.append(name)
++    if missing:
++        bus.disconnect(disable_torque=False)
++        raise RuntimeError(f"No answer from {missing}")
+     print("All servos ready.")
+     return bus
+ 

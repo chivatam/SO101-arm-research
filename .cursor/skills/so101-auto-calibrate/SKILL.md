@@ -11,11 +11,11 @@ description: >-
 
 Released LeRobot 0.6.2 has no auto-calibration command. This arm was calibrated with the Maker-Mods fork (same code as Hugging Face PR 3282). The saved file is what 0.6.2 loads.
 
-`docs/bringup.md` still describes the official manual `lerobot-calibrate` flow. Ignore that section. The user rejected it.
+Humans follow `docs/calibration.md`. That is the procedure below.
 
 ## Do not
 
-- Do not run `lerobot-calibrate`, `scripts/auto_calibrate_follower.py`, or `third_party/lerobot` `auto_calibrate` / `SO_ARM_PLAN`. That engine is the unmerged PR 4826 port. On this STS3215 it writes `Goal_Position` past 4095 and reframes `Homing_Offset` without a flush, then leaves the arm limp and extended.
+- Do not run `lerobot-calibrate`, `scripts/experimental/auto_calibrate_follower.py`, or `third_party/lerobot` `auto_calibrate` / `SO_ARM_PLAN`. That engine is the unmerged PR 4826 port. On this STS3215 it writes `Goal_Position` past 4095 and reframes `Homing_Offset` without a flush, then leaves the arm limp and extended.
 - Do not checkout the `pr-4826` branch. Its follower code uses the old bus API.
 - Do not enable torque, write a goal, or start a sweep until the user is at the arm, has confirmed the folded pose, and is by the power switch. A read-only status check is fine with nobody watching.
 - Do not re-run a successful calibration to “tighten” a range. Re-running overwrites servo EEPROM and the JSON.

@@ -9,6 +9,7 @@ from __future__ import annotations
 import argparse
 import json
 import sys
+from pathlib import Path
 
 import rustypot
 
@@ -66,11 +67,23 @@ def scan(port: str, timeout_s: float) -> dict:
         bus.close()
 
 
+def bench_port() -> str | None:
+    path = Path(__file__).resolve().parents[1] / "config" / "bench.json"
+    if not path.is_file():
+        return None
+    with path.open() as handle:
+        port = json.load(handle).get("port")
+    return port if isinstance(port, str) and port else None
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--port", required=True)
+    parser.add_argument("--port", default=bench_port(), help="Serial port. Defaults to config/bench.json.")
     parser.add_argument("--timeout", type=float, default=0.25)
     args = parser.parse_args()
+    if not args.port:
+        print("Pass --port or set port in config/bench.json.", file=sys.stderr)
+        return 1
     try:
         report = scan(args.port, args.timeout)
     except Exception as exc:

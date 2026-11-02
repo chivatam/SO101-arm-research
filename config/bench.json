@@ -1,0 +1,35 @@
+{
+  "robot_id": "so101_follower",
+  "robot_type": "so_follower",
+  "port": "/dev/tty.usbmodem5C821107241",
+  "baud": 1000000,
+  "calibration_file": "~/.cache/huggingface/lerobot/calibration/robots/so_follower/so101_follower.json",
+  "adapter": {
+    "product": "USB Single Serial",
+    "vendor_id": "0x1A86",
+    "product_id": "0x55D3",
+    "serial": "5C82110724"
+  },
+  "cameras": [
+    {
+      "role": "table",
+      "opencv_index": 0,
+      "name": "icspring",
+      "vendor_id": 13030,
+      "product_id": 36869
+    },
+    {
+      "role": "gripper",
+      "opencv_index": 1,
+      "name": "icspring",
+      "vendor_id": 13030,
+      "product_id": 37409
+    }
+  ],
+  "leader_connected": false,
+  "policy_id": "lerobot/MolmoAct2-SO100_101-LeRobot",
+  "operator": {
+    "host": "127.0.0.1",
+    "port": 8771
+  }
+}
